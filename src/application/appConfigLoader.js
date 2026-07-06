@@ -18,7 +18,7 @@ class AppConfigLoader {
     this.configFilePath = process.env.CONFIG_FILE || './config/expense-management-svc';
 
     const configFile = path.resolve(
-      `${this.configFilePath}/${this.env}/expense-management-svc.json`
+      `/usr/local/secrets/expense-management-svc.json`
     );
 
     logger.info(`Loading config from: ${configFile}`);
