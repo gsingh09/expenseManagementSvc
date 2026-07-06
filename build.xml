@@ -68,7 +68,7 @@
     <target name="copy-prod-config" description="Copy production configuration files">
         <echo message="Copying production configuration files..."/>
         <copy todir="${build.dir}">
-            <fileset dir="${config.dir}/expense-management-svc/prod">
+            <fileset dir="${config.dir}/expense-management-svc/production">
                 <include name="application.env"/>
                 <include name="ecosystem.json"/>
             </fileset>
