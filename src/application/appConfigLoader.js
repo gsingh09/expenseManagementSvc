@@ -18,7 +18,7 @@ class AppConfigLoader {
     this.configFilePath = process.env.CONFIG_FILE || './config/expense-management-svc';
 
     const configFile = path.resolve(
-      `/usr/local/secrets/expense-management-svc.json`
+      `/usr/local/secrets/mysql_expense_secrets.json`
     );
 
     logger.info(`Loading config from: ${configFile}`);
