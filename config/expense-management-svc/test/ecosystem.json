@@ -1,0 +1,26 @@
+{
+  "apps": [
+    {
+      "name": "expenseManagementSvc-test",
+      "script": "src/application/index.js",
+      "instances": 2,
+      "exec_mode": "cluster",
+      "watch": true,
+      "ignore_watch": ["node_modules", "logs", "temp"],
+      "watch_delay": 60000,
+      "merge_logs": true,
+      "error_file": "./logs/test/pm2-error.log",
+      "out_file": "./logs/test/pm2-out.log",
+      "log_file": "./logs/test/pm2-combined.log",
+      "time": true,
+      "env": {
+        "NODE_ENV": "test",
+        "CONFIG_FILE": "./config/expense-management-svc/test",
+        "LOG_DIR": "./logs/test",
+        "LOG_LEVEL": "info"
+      },
+      "restart_delay": 4000,
+      "max_memory_restart": "300M"
+    }
+  ]
+}

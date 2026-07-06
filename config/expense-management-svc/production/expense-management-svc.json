@@ -1,0 +1,12 @@
+{
+  "db": {
+    "host": "db-prod.example.com",
+    "port": 3306,
+    "database": "expense_mgmt_prod",
+    "username": "db_user",
+    "password": "REPLACE_WITH_SECRET",
+    "dialect": "mysql"
+  },
+  "notificationsEnabled": true,
+  "logLevel": "warn"
+}

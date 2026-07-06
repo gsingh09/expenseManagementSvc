@@ -1,0 +1,16 @@
+{
+  "apps": [
+    {
+        "name": "expenseManagementSvc",
+        "script": "index.js",
+        "instances": 4,
+        "exec_mode": "cluster",
+        "watch" : false,
+        "ignore_watch": ["node_modules", "logs", "temp"],
+        "watch_delay": 60000,
+         "env" : {
+            "ENV_PATH" : "/usr/local/apps/demoDogService/config/production/application.env"
+        }
+    }
+  ]
+}

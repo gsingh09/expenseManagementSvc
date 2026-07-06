@@ -1,0 +1,12 @@
+{
+  "db": {
+    "host": "localhost",
+    "port": 3306,
+    "database": "expense_mgmt_local",
+    "username": "root",
+    "password": "root",
+    "dialect": "mysql"
+  },
+  "notificationsEnabled": false,
+  "logLevel": "debug"
+}

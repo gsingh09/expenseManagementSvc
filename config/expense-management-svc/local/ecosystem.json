@@ -1,0 +1,25 @@
+{
+  "apps": [
+    {
+      "name": "expenseManagementSvc-local",
+      "script": "src/application/index.js",
+      "instances": 1,
+      "exec_mode": "fork",
+      "watch": true,
+      "ignore_watch": ["node_modules", "logs", "temp"],
+      "watch_delay": 1000,
+      "error_file": "./logs/pm2-error.log",
+      "out_file": "./logs/pm2-out.log",
+      "log_file": "./logs/pm2-combined.log",
+      "time": true,
+      "env": {
+        "NODE_ENV": "local",
+        "CONFIG_FILE": "./config/expense-management-svc/local",
+        "LOG_DIR": "./logs",
+        "LOG_LEVEL": "debug"
+      },
+      "restart_delay": 1000,
+      "max_memory_restart": "200M"
+    }
+  ]
+}

@@ -1,0 +1,570 @@
+{
+  "info": {
+    "name": "Expense Management Service",
+    "description": "Complete API for managing expenses with multi-level approval workflows",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "item": [
+        {
+          "name": "Ping",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/ping",
+              "host": ["{{base_url}}"],
+              "path": ["ping"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Organizations",
+      "item": [
+        {
+          "name": "List All Organizations",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/admin/organizations",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "organizations"]
+            }
+          }
+        },
+        {
+          "name": "Get Organization Details",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/admin/organizations/{{orgId}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "organizations", "{{orgId}}"]
+            }
+          }
+        },
+        {
+          "name": "Create Organization",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Tech Corp\",\n  \"slug\": \"tech-corp\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/admin/organizations",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "organizations"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Expense Types",
+      "item": [
+        {
+          "name": "List Expense Types",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/admin/organizations/{{orgId}}/expense-types",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "organizations", "{{orgId}}", "expense-types"]
+            }
+          }
+        },
+        {
+          "name": "Get Expense Type",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/admin/organizations/{{orgId}}/expense-types/{{typeId}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "organizations", "{{orgId}}", "expense-types", "{{typeId}}"]
+            }
+          }
+        },
+        {
+          "name": "Create Expense Type",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Travel\",\n  \"maxAmount\": 5000,\n  \"description\": \"Travel expenses including flights and hotels\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/admin/organizations/{{orgId}}/expense-types",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "organizations", "{{orgId}}", "expense-types"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Roles",
+      "item": [
+        {
+          "name": "List Roles",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/admin/organizations/{{orgId}}/roles",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "organizations", "{{orgId}}", "roles"]
+            }
+          }
+        },
+        {
+          "name": "Get Role",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/admin/organizations/{{orgId}}/roles/{{roleId}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "organizations", "{{orgId}}", "roles", "{{roleId}}"]
+            }
+          }
+        },
+        {
+          "name": "Create Role",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Finance Manager\",\n  \"approvalLevel\": 3\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/admin/organizations/{{orgId}}/roles",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "organizations", "{{orgId}}", "roles"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Departments",
+      "item": [
+        {
+          "name": "List Departments",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/admin/organizations/{{orgId}}/departments",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "organizations", "{{orgId}}", "departments"]
+            }
+          }
+        },
+        {
+          "name": "Get Department",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/admin/organizations/{{orgId}}/departments/{{deptId}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "organizations", "{{orgId}}", "departments", "{{deptId}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "List Users in Organization",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/admin/organizations/{{orgId}}/users",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "organizations", "{{orgId}}", "users"]
+            }
+          }
+        },
+        {
+          "name": "Get User Details",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/admin/users/{{userId}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "users", "{{userId}}"]
+            }
+          }
+        },
+        {
+          "name": "Create User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"john.doe@techcorp.com\",\n  \"firstName\": \"John\",\n  \"lastName\": \"Doe\",\n  \"deptId\": 1,\n  \"managerId\": 2\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/admin/organizations/{{orgId}}/users",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "organizations", "{{orgId}}", "users"]
+            }
+          }
+        },
+        {
+          "name": "Assign Role to User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"roleId\": 1\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/users/{{userId}}/roles",
+              "host": ["{{base_url}}"],
+              "path": ["api", "users", "{{userId}}", "roles"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Workflows",
+      "item": [
+        {
+          "name": "List Workflows",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/admin/organizations/{{orgId}}/workflows",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "organizations", "{{orgId}}", "workflows"]
+            }
+          }
+        },
+        {
+          "name": "Get Workflow Details",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/admin/workflows/{{workflowId}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "workflows", "{{workflowId}}"]
+            }
+          }
+        },
+        {
+          "name": "Create Workflow",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"expenseTypeId\": 1,\n  \"strategy\": \"HIERARCHY\",\n  \"name\": \"Travel Approval Workflow\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/admin/organizations/{{orgId}}/workflows",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "organizations", "{{orgId}}", "workflows"]
+            }
+          }
+        },
+        {
+          "name": "Add Approval Steps (Multiple)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"steps\": [\n    {\n      \"stepOrder\": 1,\n      \"requiredApprovalLevel\": 1,\n      \"requiredRoleId\": null\n    },\n    {\n      \"stepOrder\": 2,\n      \"requiredApprovalLevel\": 2,\n      \"requiredRoleId\": null\n    },\n    {\n      \"stepOrder\": 3,\n      \"requiredApprovalLevel\": 3,\n      \"requiredRoleId\": null\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/admin/organizations/{{orgId}}/workflows/{{workflowId}}/steps",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "organizations", "{{orgId}}", "workflows", "{{workflowId}}", "steps"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Expenses",
+      "item": [
+        {
+          "name": "List Expenses",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/organizations/{{orgId}}/expenses?status=SUBMITTED",
+              "host": ["{{base_url}}"],
+              "path": ["api", "organizations", "{{orgId}}", "expenses"],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "SUBMITTED"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Expense Details",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/organizations/{{orgId}}/expenses/{{expenseId}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "organizations", "{{orgId}}", "expenses", "{{expenseId}}"]
+            }
+          }
+        },
+        {
+          "name": "Create Expense (Draft)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"submitterId\": 1,\n  \"expenseTypeId\": 1,\n  \"amount\": 2500,\n  \"description\": \"Flight to NYC for conference\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/organizations/{{orgId}}/expenses",
+              "host": ["{{base_url}}"],
+              "path": ["api", "organizations", "{{orgId}}", "expenses"]
+            }
+          }
+        },
+        {
+          "name": "Submit Expense for Approval",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"submitterId\": 1\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/organizations/{{orgId}}/expenses/{{expenseId}}/submit",
+              "host": ["{{base_url}}"],
+              "path": ["api", "organizations", "{{orgId}}", "expenses", "{{expenseId}}", "submit"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Approvals",
+      "item": [
+        {
+          "name": "Get Pending Approvals",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/users/{{userId}}/pending-approvals",
+              "host": ["{{base_url}}"],
+              "path": ["api", "users", "{{userId}}", "pending-approvals"]
+            }
+          }
+        },
+        {
+          "name": "Approve Expense",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"approverId\": 2,\n  \"comments\": \"Approved for payment\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/users/{{userId}}/expenses/{{expenseId}}/approve",
+              "host": ["{{base_url}}"],
+              "path": ["api", "users", "{{userId}}", "expenses", "{{expenseId}}", "approve"]
+            }
+          }
+        },
+        {
+          "name": "Reject Expense",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"approverId\": 2,\n  \"comments\": \"Need more details on this expense\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/users/{{userId}}/expenses/{{expenseId}}/reject",
+              "host": ["{{base_url}}"],
+              "path": ["api", "users", "{{userId}}", "expenses", "{{expenseId}}", "reject"]
+            }
+          }
+        },
+        {
+          "name": "Request Modification",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"approverId\": 2,\n  \"comments\": \"Please provide receipt for this expense\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/users/{{userId}}/expenses/{{expenseId}}/request-modification",
+              "host": ["{{base_url}}"],
+              "path": ["api", "users", "{{userId}}", "expenses", "{{expenseId}}", "request-modification"]
+            }
+          }
+        },
+        {
+          "name": "Get Approval History",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/users/{{userId}}/expenses/{{expenseId}}/approvals",
+              "host": ["{{base_url}}"],
+              "path": ["api", "users", "{{userId}}", "expenses", "{{expenseId}}", "approvals"]
+            }
+          }
+        },
+        {
+          "name": "Get Audit Log",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/users/{{userId}}/expenses/{{expenseId}}/audit-log",
+              "host": ["{{base_url}}"],
+              "path": ["api", "users", "{{userId}}", "expenses", "{{expenseId}}", "audit-log"]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "orgId",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "userId",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "expenseId",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "workflowId",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "typeId",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "roleId",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "deptId",
+      "value": "1",
+      "type": "string"
+    }
+  ]
+}

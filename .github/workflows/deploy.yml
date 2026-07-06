@@ -1,0 +1,43 @@
+name: Deploy to GCP VM
+
+on:
+  push:
+    branches: ["release"]
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install Ant
+        run: sudo apt-get install -y ant
+
+      - name: Run Ant clean build
+        run: ant clean prod-ready
+
+      - name: Add SSH Key
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.VM_SSH_KEY }}
+
+      - name: Deploy build output to VM
+        run: |
+          scp -r -o StrictHostKeyChecking=no ./dist/* \
+          ${{ secrets.GCP_VM_USER }}@${{ secrets.GCP_VM_HOST }}:~
+        
+      - name: Deploy on VM
+        run: |
+          ssh -o StrictHostKeyChecking=no -i deploy_key ${{ secrets.GCP_VM_USER }}@${{ secrets.GCP_VM_HOST }} << 'EOF'
+            sudo mkdir -p /usr/local/apps/expenseManagementSvc
+            sudo tar -xzf ~/expenseManagementSvc.tgz -C /usr/local/apps/ --overwrite
+            
+            cd /usr/local/apps/expenseManagementSvc
+            sudo pm2 stop ecosystem.json || true
+            sudo pm2 start ecosystem.json
+
+            sudo pm2 save
+          EOF

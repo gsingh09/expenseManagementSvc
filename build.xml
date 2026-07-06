@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="expenseManagementSvc" default="build" basedir=".">
+    <description>Build file for Expense Management Service deployment</description>
+
+    <!-- Properties -->
+    <property name="src.dir" value="src"/>
+    <property name="build.dir" value="build"/>
+    <property name="config.dir" value="config"/>
+    <property name="app.name" value="expenseManagementSvc"/>
+    <property name="dist.dir" value="dist"/>
+
+    <!-- Default target: basic build -->
+    <target name="build" depends="clean,copy-src-files,copy-package-files,copy-config-folder,npm-install,create-tgz"
+            description="Build application for deployment">
+        <echo message="Basic build completed successfully"/>
+    </target>
+
+    <!-- Production ready target -->
+    <target name="prod-ready" depends="clean,copy-src-files,copy-package-files,copy-prod-config,copy-config-folder,npm-install,create-tgz"
+            description="Build application for production deployment">
+        <echo message="Production build completed successfully"/>
+    </target>
+
+    <!-- Test ready target -->
+    <target name="test-ready" depends="clean,copy-src-files,copy-package-files,copy-test-config,copy-config-folder,npm-install-dev,create-tgz"
+            description="Build application for testing deployment">
+        <echo message="Test build completed successfully"/>
+    </target>
+
+    <!-- Staging ready target -->
+    <target name="staging-ready" depends="clean,copy-src-files,copy-package-files,copy-staging-config,copy-config-folder,npm-install-dev,create-tgz"
+            description="Build application for staging deployment">
+        <echo message="Staging build completed successfully"/>
+    </target>
+
+    <!-- Clean build directory -->
+    <target name="clean" description="Clean build directory">
+        <echo message="Cleaning build directory..."/>
+        <delete dir="${build.dir}"/>
+        <delete dir="${dist.dir}"/>
+        <mkdir dir="${build.dir}"/>
+        <mkdir dir="${dist.dir}"/>
+    </target>
+
+    <!-- Copy src files to build directory -->
+    <target name="copy-src-files" description="Copy source files to build directory">
+        <echo message="Copying source files to build directory..."/>
+        <copy todir="${build.dir}">
+            <fileset dir="${src.dir}">
+                <exclude name="node_modules/**"/>
+                <exclude name="package-lock.json"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <!-- Copy package.json and package-lock.json -->
+    <target name="copy-package-files" description="Copy package files">
+        <echo message="Copying package files..."/>
+        <copy todir="${build.dir}">
+            <fileset dir=".">
+                <include name="package.json"/>
+                <include name="package-lock.json"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <!-- Copy production config files -->
+    <target name="copy-prod-config" description="Copy production configuration files">
+        <echo message="Copying production configuration files..."/>
+        <copy todir="${build.dir}">
+            <fileset dir="${config.dir}/expense-management-svc/prod">
+                <include name="application.env"/>
+                <include name="ecosystem.json"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <!-- Copy test config files -->
+    <target name="copy-test-config" description="Copy test configuration files">
+        <echo message="Copying test configuration files..."/>
+        <copy todir="${build.dir}">
+            <fileset dir="${config.dir}/expense-management-svc/test">
+                <include name="application.env"/>
+                <include name="ecosystem.json"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <!-- Copy staging config files -->
+    <target name="copy-staging-config" description="Copy staging configuration files">
+        <echo message="Copying staging configuration files..."/>
+        <copy todir="${build.dir}">
+            <fileset dir="${config.dir}/expense-management-svc/staging">
+                <include name="application.env"/>
+                <include name="ecosystem.json"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <!-- Copy entire config folder -->
+    <target name="copy-config-folder" description="Copy entire configuration folder">
+        <echo message="Copying entire configuration folder..."/>
+        <copy todir="${build.dir}/config">
+            <fileset dir="${config.dir}"/>
+        </copy>
+    </target>
+
+    <!-- Run npm install in build directory -->
+    <target name="npm-install" description="Install npm dependencies in build directory">
+        <echo message="Installing npm dependencies in build directory..."/>
+        <exec executable="npm" dir="${build.dir}" failonerror="true">
+            <arg value="install"/>
+            <arg value="--production"/>
+        </exec>
+    </target>
+
+    <!-- Run npm install with dev dependencies for test environment -->
+    <target name="npm-install-dev" description="Install all npm dependencies including dev dependencies">
+        <echo message="Installing all npm dependencies (including dev) in build directory..."/>
+        <exec executable="npm" dir="${build.dir}" failonerror="true">
+            <arg value="install"/>
+        </exec>
+    </target>
+
+    <!-- Create tgz file of build folder -->
+    <target name="create-tgz" description="Create tgz archive of build folder">
+        <echo message="Creating tgz archive of build folder..."/>
+        <tar destfile="${dist.dir}/${app.name}.tgz" compression="gzip">
+            <tarfileset dir="${build.dir}" prefix="${app.name}"/>
+        </tar>
+        <echo message="Created ${app.name}.tgz in ${dist.dir} directory"/>
+    </target>
+
+    <!-- Help target -->
+    <target name="help" description="Display help information">
+        <echo message="Available targets:"/>
+        <echo message="  build         - Basic build (copies src files, entire config folder, installs dependencies)"/>
+        <echo message="  prod-ready    - Production build (includes prod config files)"/>
+        <echo message="  test-ready    - Test build (includes test config files and dev dependencies)"/>
+        <echo message="  staging-ready - Staging build (includes staging config files and dev dependencies)"/>
+        <echo message="  clean         - Clean build directory"/>
+        <echo message="  help          - Display this help"/>
+        <echo message=""/>
+        <echo message="Usage examples:"/>
+        <echo message="  ant build         - Create basic deployment build"/>
+        <echo message="  ant prod-ready    - Create production deployment build"/>
+        <echo message="  ant test-ready    - Create test deployment build"/>
+        <echo message="  ant staging-ready - Create staging deployment build"/>
+    </target>
+</project>
