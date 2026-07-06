@@ -4,7 +4,7 @@
   "description": "Scalable expense management platform with configurable approval workflows",
   "main": "src/index.js",
   "scripts": {
-    "start": "node src/index.js",
+    "start": "node index.js",
     "dev": "dotenv -e config/expense-management-svc/local/application.env nodemon src/index.js",
     "test": "dotenv -e config/expense-management-svc/test/application.env jest --detectOpenHandles --forceExit",
     "test:watch": "dotenv -e config/expense-management-svc/test/application.env jest --watch",
