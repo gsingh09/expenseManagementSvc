@@ -49,3 +49,7 @@ Thumbs.db
 
 # Audit
 .audit-*.json
+
+
+SYSTEM_DESIGN.md
+DEPLOYMENT_GUIDE.md

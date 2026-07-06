@@ -1,8 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Read(//Users/gurpreetsingh/serviceCollector/demoDogService/**)",
-      "Bash(xargs cat:*)"
-    ]
-  }
-}
